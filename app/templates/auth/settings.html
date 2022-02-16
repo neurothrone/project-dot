@@ -1,0 +1,14 @@
+{% extends "shared/base.html" %}
+{% set active_page = "settings" %}
+
+{% block title %}{{ super() }} - Settings{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5 text-center">
+        <h1>Settings</h1>
+        <p><a href="{{ url_for('auth.change_email') }}">Change Your Email</a></p>
+        <p><a href="{{ url_for('auth.change_username') }}">Change Your Username</a></p>
+        <p><a href="{{ url_for('auth.change_password') }}">Change Your Password</a></p>
+        <p><a href="{{ url_for('auth.delete_account') }}">Delete Your Account</a></p>
+    </div>
+{% endblock %}

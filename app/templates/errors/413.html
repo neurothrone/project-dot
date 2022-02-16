@@ -1,0 +1,11 @@
+{% extends "shared/base.html" %}
+
+{% block title %}DoT - Too Large{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5 text-center">
+        <h1>Too Large</h1>
+        <p>The file was too large.</p>
+        <p><a href="{{ url_for('main.index') }}">Home</a></p>
+    </div>
+{% endblock %}

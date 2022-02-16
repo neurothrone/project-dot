@@ -1,0 +1,15 @@
+{% with users = paginator.items %}
+    {% if users %}
+        <div class="text-center">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for user in users %}
+                    {% include "open/developers/_developer_card.html" %}
+                {% endfor %}
+            </div>
+
+            {% with endpoint="open.developers" %}
+                {% include "open/shared/_pagination_bar_search.html" %}
+            {% endwith %}
+        </div>
+    {% endif %}
+{% endwith %}

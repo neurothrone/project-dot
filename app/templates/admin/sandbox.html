@@ -1,0 +1,19 @@
+{% extends "shared/base.html" %}
+{% set active_page = "sandbox" %}
+
+{% block title %}{{ super() }} - Sandbox{% endblock %}
+
+{% block page_content %}
+    <div class="container my-4">
+        <h1 class="text-center">Sandbox</h1>
+        <hr>
+        <h2>Filter test</h2>
+        {% if now %}
+            <p>Day: {{ now|day }}</p>
+            <p>Date: {{ now|date }}</p>
+            <p>Time: {{ now|time }}</p>
+            <p>Datetime: {{ now|datetime }}</p>
+            <p>Datetime without filter and with momentjs: {{ moment(now).format("LLL") }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

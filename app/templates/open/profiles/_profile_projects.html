@@ -1,0 +1,19 @@
+{% with projects = paginator.items %}
+    {% if projects %}
+        <div class="text-center">
+            <!-- User projects -->
+            <div class="row row-cols-1 row-cols-lg-2 g-3">
+                {% for project in projects %}
+                    {% include "open/projects/_project_card.html" %}
+                {% endfor %}
+            </div>
+
+            <!-- Pagination bar -->
+            {% with endpoint="open.view_profile", username=username|lower %}
+                {% include "open/profiles/_pagination_bar.html" %}
+            {% endwith %}
+        </div>
+    {% else %}
+        <p>No projects yet.</p>
+    {% endif %}
+{% endwith %}

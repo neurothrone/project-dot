@@ -1,0 +1,119 @@
+{% from "macros/forms.html" import render_errors %}
+
+<div class="text-center my-5">
+    <img class="d-block mx-auto mb-4 border"
+         src="{{ current_user.profile.gravatar(60) }}"
+         alt="user gravatar">
+    <h2>{{ current_user.username|upper }}</h2>
+</div>
+
+<div class="container col-md-7 col-lg-8 mx-auto">
+    <form class="needs-validation"
+          action="{{ url_for('user.edit_profile') }}"
+          method="post"
+          enctype="multipart/form-data"
+          novalidate>
+        {{ form.csrf_token }}
+
+        <h4 class="mb-3">Personal</h4>
+        <div class="row g-3">
+            <div class="col-sm-6">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control", placeholder="Jane") }}
+                {{ render_errors(form.name) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form.surname.label(class="form-label") }}
+                {{ form.surname(class="form-control", placeholder="Doe") }}
+                {{ render_errors(form.surname) }}
+            </div>
+            <div class="col-12">
+                {{ form.city.label(class="form-label") }}
+                {{ form.city(class="form-control", placeholder="Gothenburg") }}
+                {{ render_errors(form.city) }}
+            </div>
+            <div class="col-12">
+                {{ form.profile_image.label(class="form-label") }}
+                <div class="input-group">
+                    {{ form.profile_image(class="form-control", type="file") }}
+                </div>
+                {{ render_errors(form.profile_image) }}
+            </div>
+            <div class="col-12">
+                {{ form.headline.label(class="form-label") }}
+                {{ form.headline(class="form-control", placeholder="A short description about you", rows=3) }}
+                {{ render_errors(form.headline) }}
+            </div>
+            <div class="col-12">
+                {{ form.bio.label(class="form-label") }}
+                {{ form.bio(class="form-control", placeholder="A long description about you", rows=10) }}
+                {{ render_errors(form.bio) }}
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <h4 class="mb-3">Social</h4>
+        <div class="row g-3">
+            <div class="col-12">
+                {{ form.social_website.label(class="form-label") }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fab fa-globe globe-color-dark"></i>
+                    </span>
+                    {{ form.social_website(class="form-control", placeholder="https://www.your-website.com", type="url") }}
+                </div>
+                {{ render_errors(form.social_website) }}
+                <div class="invalid-feedback">
+                    Please enter a valid URL.
+                </div>
+            </div>
+            <div class="col-12">
+                {{ form.social_github.label(class="form-label") }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fab fa-github-square github-color-dark"></i>
+                    </span>
+                    {{ form.social_github(class="form-control", placeholder="https://www.github.com/username", type="url") }}
+                </div>
+                {{ render_errors(form.social_github) }}
+                <div class="invalid-feedback">
+                    Please enter a valid URL.
+                </div>
+            </div>
+            <div class="col-12">
+                {{ form.social_linkedin.label(class="form-label") }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fab fa-linkedin linkedin-color-dark">
+
+                        </i></span>
+                    {{ form.social_linkedin(class="form-control", placeholder="https://www.linkedin.com/username", type="url") }}
+                </div>
+                {{ render_errors(form.social_linkedin) }}
+                <div class="invalid-feedback">
+                    Please enter a valid URL.
+                </div>
+            </div>
+            <div class="col-12">
+                {{ form.social_youtube.label(class="form-label") }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        <i class="fab fa-youtube-square youtube-color-dark"></i>
+                    </span>
+                    {{ form.social_youtube(class="form-control", placeholder="https://www.youtube.com/identifier", type="url") }}
+                </div>
+                {{ render_errors(form.social_youtube) }}
+                <div class="invalid-feedback">
+                    Please enter a valid URL.
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        {{ form.submit(class="w-100 btn btn-primary btn-lg") }}
+        {% if request.referrer %}
+            <a class="w-100 btn btn-secondary btn-lg mt-3"
+               href="{{ request.referrer }}">Back</a>
+        {% endif %}
+    </form>
+</div>

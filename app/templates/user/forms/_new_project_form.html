@@ -1,0 +1,49 @@
+{% from "macros/forms.html" import render_errors %}
+
+<div class="container col-md-7 col-lg-8 mx-auto">
+    <form class="needs-validation"
+          action="{{ url_for('user.new_project') }}"
+          method="post"
+          novalidate>
+        {{ form.csrf_token }}
+
+        <div class="row g-3">
+            <div class="col-12">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control", placeholder="Project title") }}
+                {{ render_errors(form.title) }}
+            </div>
+            <div class="col-12">
+                {{ form.description.label(class="form-label") }}
+                {{ form.description(class="form-control", placeholder="Description about the project", rows=5) }}
+                {{ render_errors(form.description) }}
+            </div>
+
+            {# featured_image #}
+
+            <div class="col-12">
+                {{ form.demo_link.label(class="form-label") }}
+                {{ form.demo_link(class="form-control", placeholder="https://www.youtube.com/watch?v=identifier", type="url") }}
+                {{ render_errors(form.demo_link) }}
+                <div class="invalid-feedback">
+                    Please enter a valid URL.
+                </div>
+            </div>
+            <div class="col-12">
+                {{ form.source_link.label(class="form-label") }}
+                {{ form.source_link(class="form-control", placeholder="https://www.github.com/profile/project-name", type="url") }}
+                {{ render_errors(form.source_link) }}
+                <div class="invalid-feedback">
+                    Please enter a valid URL.
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+        {{ form.submit(class="w-100 btn btn-primary btn-lg") }}
+        {% if request.referrer %}
+            <a class="w-100 btn btn-secondary btn-lg mt-3"
+               href="{{ request.referrer }}">Back</a>
+        {% endif %}
+    </form>
+</div>

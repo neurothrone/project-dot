@@ -1,0 +1,133 @@
+<div class="row g-3">
+    <!-- Aside -->
+    <div class="col-md-5 col-lg-4 order-md-last">
+        <!-- Profile sidebar -->
+        <div class="dot-secondary-bg-color text-center rounded p-3">
+
+            {#            {% set profile_image = url_for('static', filename='img/uploads/profiles/' + profile.profile_image + '.sm.png') %}#}
+            {##}
+            {#            {% if profile_image %}#}
+            {#                <img class="d-block mx-auto mb-3 rounded"#}
+            {#                     src="{{ profile_image }}"#}
+            {#                     alt=""#}
+            {#                     width="100%">#}
+            {#            {% else %}#}
+            {#                <img class="d-block mx-auto mb-3 rounded"#}
+            {#                     src="https://picsum.photos/300" alt=""#}
+            {#                     width="100%" height="300">#}
+            {#            {% endif %}#}
+            {##}
+            {#            <img class="d-block mx-auto mb-3 rounded"#}
+            {#                 src="{{ profile_image if profile_image else 'https://picsum.photos/300' }}"#}
+            {#                 alt=""#}
+            {#                 width="100%">#}
+
+            {% if user.profile.profile_image %}
+                <img class="d-block mx-auto mb-3 rounded"
+                     src="{{ url_for('static', filename='img/uploads/profiles/' + user.profile.profile_image) }}"
+                     alt=""
+                     width="100%">
+            {% else %}
+                <img class="d-block mx-auto mb-3 rounded"
+                     src="https://picsum.photos/300" alt=""
+                     width="100%" height="300">
+            {% endif %}
+
+            <h2 class="text-white">{{ user.profile.full_name or user.username }}</h2>
+            <p class="lead dot-primary-text-color">{{ user.profile.headline }}</p>
+            {% if user.profile.city %}
+                <p><span class="dot-primary-text-color">Based in</span> <a class="text-decoration-none"
+                                                                           href="https://www.google.com/maps/place/{{ user.profile.city }}">{{ user.profile.city }}</a>
+                </p>
+            {% endif %}
+            <!-- Social links -->
+            <ul class="list-inline fs-2">
+                {% if user.profile.social_website %}
+                    <li class="list-inline-item">
+                        <a class="social-link" href="#">
+                            <i class="fab fa-globe globe-color"
+                               role="link"
+                               aria-label="Personal website"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.profile.social_github %}
+                    <li class="list-inline-item">
+                        <a class="social-link" href="#">
+                            <i class="fab fa-github-square github-color"
+                               role="link"
+                               aria-label="GitHub"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.profile.social_linkedin %}
+                    <li class="list-inline-item">
+                        <a class="social-link" href="#">
+                            <i class="fab fa-linkedin linkedin-color"
+                               role="link"
+                               aria-label="LinkedIn"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.profile.social_youtube %}
+                    <li class="list-inline-item">
+                        <a class="social-link" href="#">
+                            <i class="fab fa-youtube-square youtube-color"
+                               role="link"
+                               aria-label="YouTube"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            {% if current_user.username != user.username %}
+                <button class="btn btn-primary rounded-pill mb-4">Send Message</button>
+            {% endif %}
+
+            <p><span class="dot-primary-text-color">Joined {{ user.created_at|date }}</span></p>
+            <p><span
+                    class="dot-primary-text-color">Last seen {{ moment(user.profile.last_seen_at).fromNow(refresh=True) }}</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="col-md-7 col-lg-8">
+        <!-- About Me -->
+        <div class="dot-secondary-bg-color rounded p-3">
+            <h2 class="text-white">About me</h2>
+            <p class="dot-primary-text-color">{{ user.profile.bio }}</p>
+        </div>
+
+        <!-- Projects -->
+        <div class="dot-secondary-bg-color rounded my-3 p-3">
+            <h3 class="mb-3 text-white">
+                {% if paginator.total > 1 %}
+                    Projects (<strong class="text-warning">{{ paginator.total }}</strong>)
+                {% else %}
+                    Projects
+                {% endif %} </h3>
+            {% include "open/profiles/_profile_projects.html" %}
+        </div>
+
+        <!-- Skills -->
+        <div class="dot-secondary-bg-color rounded my-3 p-3">
+            <h4 class="mb-3 text-white">Skills</h4>
+            <dl>
+                <div class="row g-2">
+                    <dt class="col-md-5 col-lg-4 text-warning">Python</dt>
+                    <dd class="col-md-7 col-lg-8 order-md-last dot-primary-text-color">Soon <s>3.10</s> 3.11!!!</dd>
+                </div>
+                <div class="row g-2">
+                    <dt class="col-md-5 col-lg-4 text-warning">Flask</dt>
+                    <dd class="col-md-7 col-lg-8 order-md-last dot-primary-text-color">DoT was built with Flask</dd>
+                </div>
+            </dl>
+        </div>
+        <!-- Other Skills -->
+        <div class="dot-secondary-bg-color rounded my-3 p-3">
+            <h4 class="mb-3 text-white">Other Skills</h4>
+            <p class="dot-primary-text-color">C, C++, JavaScript</p>
+        </div>
+    </div>
+</div>

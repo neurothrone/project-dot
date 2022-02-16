@@ -1,0 +1,78 @@
+<header>
+    <div class="bg-dark text-white p-3">
+        <div class="container">
+            <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                   href="{{ url_for('open.index') }}">
+                    <!--Logo-->
+                    <img class="rounded-circle me-2"
+                         src="{{ url_for('static', filename='img/brand/ths_logo.png') }}" alt="Logo of Teknikhögskolan"
+                         width="40">
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    {% if current_user.is_admin %}
+                        <li>
+                            <a class="nav-link px-2 {{ 'text-white' if active_page == 'admin_index' else 'text-secondary' }}"
+                               href="{{ url_for('admin.index') }}">Admin</a>
+                        </li>
+                        <li>
+                            <a class="nav-link px-2 {{ 'text-white' if active_page == 'sandbox' else 'text-secondary' }}"
+                               href="{{ url_for('admin.sandbox') }}">Sandbox</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="nav-link px-2 {{ 'text-white' if active_page == 'developers' else 'text-secondary' }}"
+                           href="{{ url_for('open.developers') }}">Developers</a>
+                    </li>
+                    <li>
+                        <a class="nav-link px-2 {{ 'text-white' if active_page == 'projects' else 'text-secondary' }}"
+                           href="{{ url_for('open.projects') }}">Projects</a>
+                    </li>
+                </ul>
+
+                <!-- if authenticated -->
+                {% if current_user.is_authenticated %}
+                    <div class="dropstart text-end">
+                        <a href="#" class="d-block link-light text-decoration-none dropdown-toggle"
+                           id="dropdownUser1"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <img class="rounded-circle"
+                                 src="{{ current_user.profile.gravatar(32) }}"
+                                 alt="user gravatar">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small"
+                            aria-labelledby="dropdownUser1">
+                            <li><h6 class="dropdown-header text-uppercase">{{ current_user.username }}</h6></li>
+                            <li><a class="dropdown-item {{ 'active' if active_page == 'new_project' }}"
+                                   href="{{ url_for('user.new_project') }}">New project...</a></li>
+                            <li><a class="dropdown-item disabled {{ 'active' if active_page == 'messages' }}"
+                                   href="#">Messages</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item {{ 'active' if active_page == 'profile' }}"
+                                   href="{{ url_for('open.view_profile', username=current_user.username) }}">Profile</a>
+                            </li>
+                            <li><a class="dropdown-item {{ 'active' if active_page == 'settings' }}"
+                                   href="{{ url_for('user.settings') }}">Settings</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                        </ul>
+                    </div>
+                    <!-- if not authenticated -->
+                {% else %}
+                    <div class="text-end">
+                        <a class="btn btn-outline-light me-2"
+                           href="{{ url_for('auth.login_post') }}">Login</a>
+                        <a class="btn btn-warning"
+                           href="{{ url_for('auth.join_post') }}">Join</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>

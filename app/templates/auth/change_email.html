@@ -1,0 +1,16 @@
+{% extends "shared/base.html" %}
+{% set active_page = "change_email" %}
+
+{% block title %}{{ super() }} - Change Your Email{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5">
+        <h2 class="text-center">Change Your Email</h2>
+        {% include "auth/forms/_change_email_form.html" %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

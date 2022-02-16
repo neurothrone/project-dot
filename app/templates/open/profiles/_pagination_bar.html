@@ -1,0 +1,38 @@
+<nav class="my-4">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link"
+               aria-label="First"
+               href="{{ url_for(endpoint, page=1, username=username) }}">&laquo;</a>
+        </li>
+        <li class="page-item {% if not paginator.has_prev %}disabled{% endif %}">
+            <a class="page-link"
+               href="{{ url_for(endpoint, page=paginator.prev_num, username=username) }}">Previous</a>
+        </li>
+        {% if paginator.has_prev %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{{ url_for(endpoint, page=paginator.prev_num, username=username) }}">{{ paginator.prev_num }}</a>
+            </li>
+        {% endif %}
+        <li class="page-item active">
+            <a class="page-link"
+               href="#"><strong>{{ paginator.page }}</strong></a>
+        </li>
+        {% if paginator.has_next %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="{{ url_for(endpoint, page=paginator.next_num, username=username) }}">{{ paginator.next_num }}</a>
+            </li>
+        {% endif %}
+        <li class="page-item {% if not paginator.has_next %}disabled{% endif %}">
+            <a class="page-link"
+               href="{{ url_for(endpoint, page=paginator.next_num, username=username) }}">Next</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"
+               aria-label="Last"
+               href="{{ url_for(endpoint, page=paginator.pages, username=username) }}">&raquo;</a>
+        </li>
+    </ul>
+</nav>

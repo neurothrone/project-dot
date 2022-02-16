@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Zaid Neurothrone">
+    <title>{% block title %}DoT{% endblock %}</title>
+    <!-- Brand icon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/brand/ths_logo.png') }}">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='libs/bootstrap/webfonts/bootstrap-icons.css') }}">
+    <!-- FontAwesome Core CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='libs/fontawesome/css/all.min.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/base.css') }}">
+    <!-- Fonts -->
+    {% block head %}{% endblock %}
+    {% block css %}{% endblock %}
+</head>
+<body class="d-flex flex-column h-100">
+<!-- CONTENT -->
+{% block content %}
+    <!-- HEADER -->
+    {% block header %}
+        {% include "shared/header.html" %}
+    {% endblock %}
+    <!-- MESSAGES -->
+    {% block messages %}
+        {% include "shared/messages.html" %}
+    {% endblock %}
+    <!-- MAIN -->
+    <main>
+        <div class="container">
+            {% block page_content %}{% endblock %}
+        </div>
+    </main>
+    <!-- FOOTER -->
+    {% block footer %}{% include "shared/footer.html" %}{% endblock %}
+{% endblock %}
+<!-- SCRIPTS -->
+{% block scripts %}
+    <!-- Bootstrap Core JS -->
+    <script src="{{ url_for('static', filename='libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- HTMX Core JS -->
+    <script src="{{ url_for('static', filename='libs/htmx/js/htmx.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/toasts.js') }}"></script>
+    <!-- Moment js -->
+    {{ moment.include_moment() }}
+    {{ moment.locale(auto_detect=True) }}
+{% endblock %}
+</body>
+</html>

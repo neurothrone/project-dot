@@ -1,0 +1,15 @@
+{% extends "shared/base.html" %}
+{% set active_page = "developers" %}
+
+{% block title %}{{ super() }} - Search for Developers{% endblock %}
+
+{% block page_content %}
+    <div class="container my-4">
+        <h1 class="text-center">Search for <strong>Developers</strong></h1>
+        {% with endpoint=url_for('open.search_developers'),
+                                    category="developers",
+                                    paginator=paginator %}
+            {% include "open/shared/partials/search.html" %}
+        {% endwith %}
+    </div>
+{% endblock %}

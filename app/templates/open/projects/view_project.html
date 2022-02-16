@@ -1,0 +1,17 @@
+{% extends "shared/base.html" %}
+{% set active_page = "view_project" %}
+
+{% block title %}{{ super() }} - {{ project.title }}{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5">
+        {% if current_user.is_authenticated and current_user.profile.id == project.owner.id %}
+            <div class="my-3 text-center">
+                <a class="btn btn-primary"
+                   href="{{ url_for('user.edit_project', project_id=project.id) }}">Edit Your Project</a>
+            </div>
+        {% endif %}
+
+        {% include "open/projects/_project_content.html" %}
+    </div>
+{% endblock %}

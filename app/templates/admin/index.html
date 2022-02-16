@@ -1,0 +1,11 @@
+{% extends "shared/base.html" %}
+{% set active_page = "admin_index" %}
+
+{% block title %}{{ super() }} - Admin{% endblock %}
+
+{% block page_content %}
+    <div class="container my-4">
+        <h1 class="text-center">Admin Page</h1>
+        <p class="text-center">Welcome to the admin page, {{ current_user.username }}</p>
+    </div>
+{% endblock %}

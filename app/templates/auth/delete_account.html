@@ -1,0 +1,16 @@
+{% extends "shared/base.html" %}
+{% set active_page = "delete_account" %}
+
+{% block title %}{{ super() }} - Delete Your Account{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5">
+        <h2 class="text-center">Delete Your Account</h2>
+        {% include "auth/forms/_delete_account_form.html" %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

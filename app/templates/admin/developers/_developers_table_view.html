@@ -1,0 +1,26 @@
+<div class="search-result-count text-center fw-bold">
+    {{ len(users) }} results
+</div>
+
+<div class="text-center">
+    {% if users %}
+        <div class="container mt-4">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,35 @@
+<div class="my-4">
+    <div class="d-flex flex-wrap justify-content-center">
+        <div class="col-12 col-lg-12 mb-0 mb-lg-0">
+            <div class="search-inputs">
+                <label for="search" hidden aria-hidden="true"></label>
+                <input class="form-control"
+                       id="search"
+                       type="search"
+                       name="search_text"
+                       placeholder="Search for {{ category }}..."
+                       aria-label="Search"
+                       value="{{ search_text or '' }}"
+                       hx-get="{{ endpoint }}"
+                       hx-trigger="keyup changed delay:500ms"
+                       hx-target="#search-results"
+                       hx-push-url="true">
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="search-results" id="search-results">
+    <div class="text-center fw-bold mb-3">
+        {{ paginator.total }} results
+    </div>
+
+    {% if category == "developers" %}
+        {{ render_partial("open/shared/partials/developers_search_results.html",
+                              paginator=paginator, search_text=search_text) }}
+    {% elif category == "projects" %}
+        {{ render_partial("open/shared/partials/projects_search_results.html",
+                              paginator=paginator, search_text=search_text) }}
+    {% endif %}
+</div>

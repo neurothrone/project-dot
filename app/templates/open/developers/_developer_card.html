@@ -1,0 +1,17 @@
+<div class="col">
+    <div class="card h-100 border-dark shadow-sm">
+
+        <img class="card-img-top" width="100%" height="225"
+             src="https://picsum.photos/225" alt="">
+
+        <div class="card-body">
+            <h5 class="card-title"><a class="text-decoration-none"
+                                      href="{{ url_for('open.view_profile', username=user.username) }}">{{ user.profile.full_name or user.username }}</a>
+            </h5>
+            <p class="lead">{{ user.profile.headline }}</p>
+        </div>
+        <div class="card-footer">
+            <small class="text-muted">Last online {{ moment(user.profile.last_seen_at).fromNow(refresh=True) }}</small>
+        </div>
+    </div>
+</div>

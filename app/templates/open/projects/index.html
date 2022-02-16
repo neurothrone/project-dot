@@ -1,0 +1,15 @@
+{% extends "shared/base.html" %}
+{% set active_page = "projects" %}
+
+{% block title %}{{ super() }} - Search for Projects{% endblock %}
+
+{% block page_content %}
+    <div class="container my-4">
+        <h1 class="text-center">Search for <strong>Projects</strong></h1>
+        {% with endpoint=url_for('open.search_projects'),
+            category="projects",
+            items=projects %}
+            {% include "open/shared/partials/search.html" %}
+        {% endwith %}
+    </div>
+{% endblock %}

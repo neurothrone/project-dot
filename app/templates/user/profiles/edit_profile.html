@@ -1,0 +1,16 @@
+{% extends "shared/base.html" %}
+{% set active_page = "view_profile" %}
+
+{% block title %}{{ super() }} - Edit Your Profile{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5">
+        <h2 class="text-center">Edit Your Profile</h2>
+        {% include "user/forms/_edit_profile_form.html" %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

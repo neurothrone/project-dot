@@ -1,0 +1,16 @@
+{% extends "shared/base.html" %}
+{% set active_page = "signup" %}
+
+{% block title %}{{ super() }} - Sign up{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5">
+        <h2 class="text-center">Sign up</h2>
+        {% include "auth/forms/_join_form.html" %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

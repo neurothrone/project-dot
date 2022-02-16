@@ -1,0 +1,22 @@
+{% extends "shared/base.html" %}
+{% set active_page = "profile" %}
+
+{% block title %}{{ username }} - {{ super() }}{% endblock %}
+
+{% block page_content %}
+    <div class="container my-5">
+        {% if current_user.username == username|lower %}
+            <div class="my-3 text-center">
+                <a class="btn btn-primary"
+                   href="{{ url_for('user.edit_profile') }}">Edit Your Profile</a>
+            </div>
+        {% endif %}
+
+        {% include "open/profiles/_profile_content.html" %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}
