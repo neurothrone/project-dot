@@ -15,7 +15,8 @@ class UserBase(SQLModel):
     email: EmailStr = Field(index=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     access_level: AccessLevel = Field(default=AccessLevel.USER,
-                                      sa_column=Column(Enum(AccessLevel)))
+                                      sa_column=Column(Enum(AccessLevel),
+                                                       nullable=False))
 
     class Config:
         schema_extra = {

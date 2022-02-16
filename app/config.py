@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "testing"
 
     # Database
-    DATABASE_URL: str | None = None
+    DB_URL: str | None = None
 
     # Search
     USERS_PER_PAGE: int = 6
@@ -32,11 +32,12 @@ class Settings(BaseSettings):
         case_sensitive = True
 
     def get_db_url(self, config_type: ConfigType | None = None) -> str:
-        if self.DATABASE_URL:
-            return self.DATABASE_URL
-
         if not config_type:
             config_type = ConfigType(self.ENVIRONMENT)
+
+        if self.DB_URL and (config_type == ConfigType.PRODUCTION or
+                            config_type == ConfigType.HEROKU):
+            return self.DB_URL
 
         match config_type:
             case ConfigType.DEVELOPMENT:

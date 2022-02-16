@@ -9,7 +9,8 @@ engine = None
 
 def init_db(db_url: str) -> None:
     global engine
-    engine = create_engine(db_url, connect_args=dict(check_same_thread=False))
+    connect_args = dict(check_same_thread=False) if "sqlite" in db_url else {}
+    engine = create_engine(db_url, connect_args=connect_args)
 
     import app.data.models
     SQLModel.metadata.create_all(engine)
