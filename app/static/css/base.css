@@ -1,0 +1,78 @@
+/* Global Variables */
+:root {
+    /* Website Colors */
+    --dot-primary-color: #deeae8;
+    --dot-secondary-color: #00594f;
+}
+
+.dot-primary-bg-color {
+    background-color: var(--dot-primary-color);
+}
+
+.dot-secondary-bg-color {
+    background-color: var(--dot-secondary-color);
+}
+
+.dot-primary-text-color {
+    color: var(--dot-primary-color);
+}
+
+.dot-secondary-text-color {
+    color: var(--dot-secondary-color);
+}
+
+body {
+    background-color: var(--dot-primary-color);
+}
+
+.dropdown-toggle {
+    outline: 0;
+}
+
+.footer-heart {
+    color: darkorchid;
+}
+
+.toast-overlay {
+    z-index: 999999 !important;
+}
+
+/* Social Colors */
+.globe-color {
+    color: gold;
+}
+
+.github-color {
+    color: mediumpurple;
+}
+
+.linkedin-color {
+    color: lightskyblue;
+}
+
+.youtube-color {
+    color: palevioletred;
+}
+
+.globe-color-dark {
+    color: goldenrod;
+}
+
+.github-color-dark {
+    color: rebeccapurple;
+}
+
+.linkedin-color-dark {
+    color: royalblue;
+}
+
+.youtube-color-dark {
+    color: red;
+}
+
+.fa-globe:hover,
+.fa-github-square:hover,
+.fa-linkedin:hover,
+.fa-youtube-square:hover {
+    opacity: 0.5;
+}
