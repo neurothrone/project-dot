@@ -21,5 +21,8 @@ python-dotenv
 # Security
 passlib[argon2]
 
+# Server
+gunicorn
+
 # Development
 faker
