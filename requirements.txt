@@ -4,6 +4,7 @@ flask-login
 flask-mail
 flask-migrate
 flask-moment
+flask-sslify
 flask-wtf
 jinja-partials
 
