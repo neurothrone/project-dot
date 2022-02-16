@@ -1,0 +1,24 @@
+# Core
+flask
+flask-login
+flask-mail
+flask-migrate
+flask-moment
+flask-wtf
+jinja-partials
+
+# Database
+sqlmodel
+
+email-validator
+pillow
+pydantic
+
+# Environment
+python-dotenv
+
+# Security
+passlib[argon2]
+
+# Development
+faker
