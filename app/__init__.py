@@ -6,9 +6,8 @@ from flask_mail import Mail
 from flask_moment import Moment
 import jinja_partials
 
-from .config import get_config, ConfigType
+from .config import configure, ConfigType
 from .cli import register_cli_commands
-from .data.db import init_db
 from .shell import setup_shell_context_processor
 
 login_manager = LoginManager()
@@ -16,12 +15,10 @@ mail = Mail()
 moment = Moment()
 
 
-def create_app(config_type: ConfigType = ConfigType.DEVELOPMENT) -> Flask:
+def create_app(config_type: ConfigType | None = None) -> Flask:
     app = Flask(__name__)
 
-    init_db(config_type)
-    app.config.from_object(get_config(config_type))
-
+    configure(app, config_type)
     initialize_extensions(app)
     register_blueprints(app)
     register_injections(app)
@@ -52,6 +49,10 @@ def initialize_extensions(app: Flask) -> None:
     @login_manager.user_loader
     def load_user(user_id: str) -> UserOutWithProfile | None:
         return UserController.get_model_by_username(user_id)
+
+    if app.config.get("SSL_REDIRECT", False):
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
 
 
 def register_blueprints(app: Flask) -> None:
