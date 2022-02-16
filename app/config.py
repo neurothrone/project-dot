@@ -2,6 +2,7 @@ from enum import Enum
 from os import getenv, urandom
 from pathlib import Path
 
+from flask import Flask
 from pydantic import BaseSettings
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,17 +12,16 @@ class ConfigType(str, Enum):
     DEVELOPMENT = "development"
     PRODUCTION = "production"
     TESTING = "testing"
+    HEROKU = "heroku"
 
 
 class Settings(BaseSettings):
-    # SECRET_KEY: str
-    # DEBUG: bool = False
     PROJECT_TITLE: str = "Developers of Teknikhögskolan"
     PROJECT_VERSION: str = "1.0.0"
     ENVIRONMENT: str = "testing"
 
     # Database
-    DB_URL: str | None = None
+    DATABASE_URL: str | None = None
 
     # Search
     USERS_PER_PAGE: int = 6
@@ -32,8 +32,8 @@ class Settings(BaseSettings):
         case_sensitive = True
 
     def get_db_url(self, config_type: ConfigType | None = None) -> str:
-        if self.DB_URL:
-            return self.DB_URL
+        if self.DATABASE_URL:
+            return self.DATABASE_URL
 
         if not config_type:
             config_type = ConfigType(self.ENVIRONMENT)
@@ -71,6 +71,13 @@ class Config:
     ALLOWED_UPLOAD_EXTENSIONS = [".jpg", ".png", ".gif"]
     UPLOAD_PATH_PROFILES = BASE_DIR / "app/static/img/uploads/profiles"
 
+    # Secure HTTP
+    SSL_REDIRECT = False
+
+    @classmethod
+    def init_app(cls, app: Flask) -> None:
+        pass
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -85,12 +92,35 @@ class TestingConfig(Config):
     WTF_CSRF_ENABLED = False
 
 
+class HerokuConfig(ProductionConfig):
+    # Secure HTTP
+    SSL_REDIRECT = True if getenv("DYNO") else False
+
+    @classmethod
+    def init_app(cls, app: Flask) -> None:
+        # Handle reverse proxy server headers
+        from werkzeug.middleware.proxy_fix import ProxyFix
+        app.wsgi_app = ProxyFix(app.wsgi_app)
+
+
 __configs = {
     "development": DevelopmentConfig,
     "production": ProductionConfig,
     "testing": TestingConfig,
+    "heroku": HerokuConfig
 }
 
 
-def get_config(config_type: ConfigType) -> Config:
+def get_config(config_type: ConfigType | None = None) -> Config:
+    if not config_type:
+        config_type = ConfigType(getenv("ENVIRONMENT", "development"))
     return __configs.get(config_type.value, DevelopmentConfig)
+
+
+def configure(app: Flask, config_type: ConfigType | None = None) -> None:
+    config_obj = get_config(config_type)
+    app.config.from_object(config_obj)
+    config_obj.init_app(app)
+
+    from .data.db import init_db
+    init_db(settings.get_db_url(config_type))
