@@ -1,5 +1,5 @@
 from enum import Enum
-from os import getenv, urandom
+from os import getenv
 from pathlib import Path
 
 from flask import Flask
@@ -52,7 +52,7 @@ settings = Settings()
 
 
 class Config:
-    SECRET_KEY = getenv("SECRET_KEY") or urandom(24)
+    SECRET_KEY = getenv("SECRET_KEY")
 
     # Mail setup
     MAIL_SERVER = getenv("MAIL_SERVER", "smtp.googlemail.com")
