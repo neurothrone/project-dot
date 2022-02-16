@@ -50,9 +50,9 @@ def initialize_extensions(app: Flask) -> None:
     def load_user(user_id: str) -> UserOutWithProfile | None:
         return UserController.get_model_by_username(user_id)
 
-    # if app.config.get("SSL_REDIRECT", False):
-    #     from flask_sslify import SSLify
-    #     sslify = SSLify(app)
+    if app.config.get("SSL_REDIRECT", False):
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
 
 
 def register_blueprints(app: Flask) -> None:
