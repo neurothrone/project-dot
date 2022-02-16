@@ -9,6 +9,7 @@ flask-wtf
 jinja-partials
 
 # Database
+psycopg2
 sqlmodel
 
 email-validator
