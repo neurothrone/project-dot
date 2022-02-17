@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
 from .base import SQLModelDBBase
 from .project import ProjectDB
+from app.shared.gravatar import gravatar_hash
 
 
 class ProfileDB(SQLModelDBBase, table=True):
@@ -42,11 +43,4 @@ class ProfileDB(SQLModelDBBase, table=True):
 
     def create_gravatar(self) -> None:
         if self.account and self.account.email and not self.avatar_hash:
-            self.avatar_hash = self.gravatar_hash()
-
-    # TODO: used in two places, extract out into a method
-    def gravatar_hash(self):
-        # Gravatar service requires email to be lowercase.
-        # MD5 support in Python works on bytes and not on strings, therefor the
-        # string must first be encoded into bytes.
-        return hashlib.md5(self.account.email.lower().encode("utf-8")).hexdigest()
+            self.avatar_hash = gravatar_hash(self.account.email)
