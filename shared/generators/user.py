@@ -1,4 +1,4 @@
-from app.controllers.user import UserController, UserIn, UserOutWithProfileWithProjects
+from app.controllers.user import UserController, UserIn, UserOutAll
 from shared.data.fake import FakeData
 from shared.generators import BaseGenerator
 
@@ -11,7 +11,7 @@ class UserGenerator(BaseGenerator):
     def generate_many(cls,
                       amount: int,
                       unique: bool = True
-                      ) -> list[UserOutWithProfileWithProjects]:
+                      ) -> list[UserOutAll]:
         if not unique:
             return super().generate_many(amount=amount)
 
@@ -31,7 +31,7 @@ class UserGenerator(BaseGenerator):
     def generate_many_with_profiles(cls,
                                     amount: int,
                                     unique: bool = True
-                                    ) -> list[UserOutWithProfileWithProjects]:
+                                    ) -> list[UserOutAll]:
         full_names = FakeData.generate_full_names(amount=amount, unique=unique)
         users = []
 
