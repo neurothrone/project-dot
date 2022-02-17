@@ -2,16 +2,16 @@ import hashlib
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship
 
 if TYPE_CHECKING:
-    # from .project import ProjectDB
     from .user import UserDB
 
+from .base import SQLModelBase
 from .project import ProjectDB
 
 
-class ProfileBase(SQLModel):
+class ProfileBase(SQLModelBase):
     name: str | None = Field(default=None, max_length=32)
     surname: str | None = Field(default=None, max_length=32)
     city: str | None = Field(default=None, max_length=64)

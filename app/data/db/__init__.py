@@ -1,4 +1,4 @@
-from sqlmodel import create_engine, Session, SQLModel
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.sql.expression import Select, SelectOfScalar
 
 SelectOfScalar.inherit_cache = True  # type: ignore
@@ -14,8 +14,3 @@ def init_db(db_url: str) -> None:
 
     import app.data.models
     SQLModel.metadata.create_all(engine)
-
-
-def get_session() -> Session:
-    with Session(engine) as session:
-        yield session

@@ -1,13 +1,15 @@
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship
 
 if TYPE_CHECKING:
     from .profile import ProfileDB
 
+from .base import SQLModelBase
 
-class ProjectBase(SQLModel):
+
+class ProjectBase(SQLModelBase):
     title: str = Field(max_length=64)
     description: str | None = None
 
