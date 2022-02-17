@@ -18,12 +18,7 @@ class UserRepository(BaseRepository):
         user = cls.model(**kwargs)
         user.profile = ProfileDB()
         user.profile.create_gravatar()
-
-        with Session(engine) as session:
-            session.add(user)
-            session.commit()
-            session.refresh(user)
-
+        user.save()
         return user
 
     @classmethod
@@ -68,11 +63,7 @@ class UserRepository(BaseRepository):
             raise UserDoesNotExist("User not found.")
 
         user.username = new_username
-        with Session(engine) as session:
-            session.add(user)
-            session.commit()
-            session.refresh(user)
-
+        user.save()
         return user
 
     @classmethod
@@ -86,11 +77,7 @@ class UserRepository(BaseRepository):
             raise UserDoesNotExist("User not found.")
 
         user.email = new_email
-        with Session(engine) as session:
-            session.add(user)
-            session.commit()
-            session.refresh(user)
-
+        user.save()
         return user
 
     @classmethod

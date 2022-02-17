@@ -19,11 +19,11 @@ def register_cli_commands(_app: Flask) -> None:
     @_app.cli.command("generate-data")
     def generate_data():
         from app.controllers.profile import ProfileController
-        from app.schemas.complex import ProjectOutWithProfile
+        from app.schemas.complex import ProfileOutWithProjects
         from shared.generators.user import UserGenerator
         from shared.generators.project import ProjectGenerator
 
-        projects: list[ProjectOutWithProfile] = ProjectGenerator.generate_many(amount=25)
+        projects: list[ProfileOutWithProjects] = ProjectGenerator.generate_many(amount=25)
         users = UserGenerator.generate_many_with_profiles(amount=25, unique=True)
 
         for project, user in zip(projects, users):
@@ -38,7 +38,7 @@ def register_cli_commands(_app: Flask) -> None:
         from app.controllers.user import UserController
         from app.shared.access import AccessLevel
         from app.schemas.user import UserIn
-        from app.schemas.complex import ProjectOutWithProfile
+        from app.schemas.complex import ProfileOutWithProjects
         from shared.generators.project import ProjectGenerator
 
         from dotenv import load_dotenv
@@ -50,6 +50,6 @@ def register_cli_commands(_app: Flask) -> None:
             password=getenv("ADMIN_PASS"),
             is_confirmed=True,
             access_level=AccessLevel.ADMIN))
-        projects: list[ProjectOutWithProfile] = ProjectGenerator.generate_many(amount=5)
+        projects: list[ProfileOutWithProjects] = ProjectGenerator.generate_many(amount=5)
         for project in projects:
             ProfileController.add_existing_project_to_user(project.id, user.id)

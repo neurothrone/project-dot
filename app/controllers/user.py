@@ -1,7 +1,7 @@
 from . import BaseController
 from app.config import settings
 from app.data.repository.user import UserRepository
-from app.schemas.complex import UserOutWithProfile, UserOutWithProfileWithProjects
+from app.schemas.complex import UserOutWithProfile, UserOutAll
 from app.schemas.user import UserIn, UserUpdate
 from app.services import security_service
 from app.shared.paginator import Paginator
@@ -9,12 +9,12 @@ from app.shared.paginator import Paginator
 
 class UserController(BaseController):
     repository = UserRepository
-    model_out = UserOutWithProfileWithProjects
+    model_out = UserOutAll
     model_name: str = "User"
     model_plural_name: str = "Users"
 
     @classmethod
-    def create(cls, user_in: UserIn) -> UserOutWithProfileWithProjects:
+    def create(cls, user_in: UserIn) -> UserOutAll:
         password = security_service.generate_password_hash(user_in.password)
         model_db = cls.repository.create(
             **user_in.dict(),
@@ -22,7 +22,7 @@ class UserController(BaseController):
         return cls.model_out.from_orm(model_db)
 
     @classmethod
-    def create_with_profile(cls, user_in: UserIn) -> UserOutWithProfileWithProjects:
+    def create_with_profile(cls, user_in: UserIn) -> UserOutAll:
         password = security_service.generate_password_hash(user_in.password)
         user_db = cls.repository.create_with_profile(
             **user_in.dict(),
@@ -64,7 +64,7 @@ class UserController(BaseController):
         # return paginator
 
     @classmethod
-    def get_model_by_username(cls, username: str) -> UserOutWithProfileWithProjects | None:
+    def get_model_by_username(cls, username: str) -> UserOutAll | None:
         user_db = cls.get_model_by_attr(username=username)
         return cls.model_out.from_orm(user_db) if user_db else None
 
@@ -74,12 +74,12 @@ class UserController(BaseController):
         return UserOutWithProfile.from_orm(user_db) if user_db else None
 
     @classmethod
-    def get_model_by_email(cls, email: str) -> UserOutWithProfileWithProjects | None:
+    def get_model_by_email(cls, email: str) -> UserOutAll | None:
         user_db = cls.get_model_by_attr(email=email)
         return cls.model_out.from_orm(user_db) if user_db else None
 
     @classmethod
-    def update_model(cls, user_id: int, user_update: UserUpdate) -> UserOutWithProfileWithProjects | None:
+    def update_model(cls, user_id: int, user_update: UserUpdate) -> UserOutAll | None:
         model_db = super().update_model(user_id, user_update)
         return cls.model_out.from_orm(model_db)
 

@@ -40,7 +40,7 @@ def initialize_extensions(app: Flask) -> None:
     login_manager.login_message = "Please log in to access this page."
     login_manager.login_message_category = "info"
 
-    from .schemas.user import AnonymousUser
+    from .schemas.auth import AnonymousUser
     login_manager.anonymous_user = AnonymousUser
 
     from .controllers.user import UserController
