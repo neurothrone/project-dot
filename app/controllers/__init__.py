@@ -1,6 +1,7 @@
 from typing import Type
 
-from app.data.repository import BaseRepository, TSQLModel
+from app.data.repository import BaseRepository
+from app.schemas.base import TSQLModel
 
 
 class BaseController:

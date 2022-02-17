@@ -4,10 +4,10 @@ from sqlmodel import SQLModel, Session
 
 from ..db import engine
 
-TSQLModel = TypeVar("TSQLModel", bound="SQLModelBase")
+TSQLModelDB = TypeVar("TSQLModelDB", bound="SQLModelDBBase")
 
 
-class SQLModelBase(SQLModel):
+class SQLModelDBBase(SQLModel):
     def save(self) -> None:
         with Session(engine) as session:
             session.add(self)

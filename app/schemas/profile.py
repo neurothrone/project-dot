@@ -3,7 +3,20 @@ from datetime import datetime
 
 from pydantic import Field
 
-from app.data.models.profile import ProfileBase
+from .base import SQLModelBase
+
+
+class ProfileBase(SQLModelBase):
+    name: str | None = Field(default=None, max_length=32)
+    surname: str | None = Field(default=None, max_length=32)
+    city: str | None = Field(default=None, max_length=64)
+    headline: str | None = Field(default=None, max_length=255)
+    bio: str | None = Field(default=None)
+
+    social_website: str | None = None
+    social_github: str | None = None
+    social_linkedin: str | None = None
+    social_youtube: str | None = None
 
 
 class ProfileIn(ProfileBase):
@@ -19,6 +32,7 @@ class ProfileOut(ProfileBase):
     def full_name(self) -> str:
         return f"{self.name} {self.surname}" if self.name and self.surname else ""
 
+    # TODO: move to ProfileOutWithUser
     def gravatar_hash(self):
         # Gravatar service requires email to be lowercase.
         # MD5 support in Python works on bytes and not on strings, therefor the

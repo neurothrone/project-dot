@@ -1,9 +1,17 @@
 from datetime import datetime
 
 from pydantic import EmailStr
+from sqlmodel import Field
 
-from app.data.models.user import UserBase
+from .base import SQLModelBase
 from app.shared.access import AccessLevel
+
+
+class UserBase(SQLModelBase):
+    username: str
+    email: EmailStr
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    access_level: AccessLevel = Field(default=AccessLevel.USER)
 
 
 class UserIn(UserBase):
@@ -11,6 +19,7 @@ class UserIn(UserBase):
     is_confirmed: bool = False
 
 
+# TODO: UserOut and AnonymousUser can inherit a base class with reusable code
 class UserOut(UserBase):
     id: int
     created_at: datetime

@@ -1,22 +1,22 @@
 from typing import Type
 
-from sqlmodel import select, Session, SQLModel
+from sqlmodel import select, Session
 
 from ..db import engine
-from ..models.base import TSQLModel
+from ..models.base import TSQLModelDB
 
 
 class BaseRepository:
-    model: Type[TSQLModel]
+    model: Type[TSQLModelDB]
 
     @classmethod
-    def create(cls, **kwargs) -> TSQLModel:
+    def create(cls, **kwargs) -> TSQLModelDB:
         db_model = cls.model(**kwargs)
         db_model.save()
         return db_model
 
     @classmethod
-    def get_all(cls, offset: int = 0, limit: int = 100) -> list[TSQLModel] | None:
+    def get_all(cls, offset: int = 0, limit: int = 100) -> list[TSQLModelDB] | None:
         with Session(engine) as session:
             return session.exec(select(cls.model)
                                 .offset(offset)
@@ -24,19 +24,19 @@ class BaseRepository:
                                 ).unique().all()
 
     @classmethod
-    def get_model_by_id(cls, _id: int) -> TSQLModel | None:
+    def get_model_by_id(cls, _id: int) -> TSQLModelDB | None:
         with Session(engine) as session:
             return session.get(cls.model, _id)
 
     @classmethod
-    def get_model_by_attr(cls, **kwargs) -> TSQLModel | None:
+    def get_model_by_attr(cls, **kwargs) -> TSQLModelDB | None:
         with Session(engine) as session:
             return session.exec(select(cls.model)
                                 .filter_by(**kwargs)
                                 ).first()
 
     @classmethod
-    def update_model(cls, db_model: TSQLModel, new_data: dict) -> TSQLModel:
+    def update_model(cls, db_model: TSQLModelDB, new_data: dict) -> TSQLModelDB:
         for key, value in new_data.items():
             setattr(db_model, key, value)
 
@@ -44,5 +44,5 @@ class BaseRepository:
         return db_model
 
     @classmethod
-    def delete_model(cls, db_model: TSQLModel) -> None:
+    def delete_model(cls, db_model: TSQLModelDB) -> None:
         db_model.delete()

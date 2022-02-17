@@ -7,11 +7,14 @@ from sqlmodel import Field, Relationship
 if TYPE_CHECKING:
     from .user import UserDB
 
-from .base import SQLModelBase
+from .base import SQLModelDBBase
 from .project import ProjectDB
 
 
-class ProfileBase(SQLModelBase):
+class ProfileDB(SQLModelDBBase, table=True):
+    __tablename__ = "profiles"
+
+    id: int | None = Field(default=None, primary_key=True)
     name: str | None = Field(default=None, max_length=32)
     surname: str | None = Field(default=None, max_length=32)
     city: str | None = Field(default=None, max_length=64)
@@ -23,13 +26,7 @@ class ProfileBase(SQLModelBase):
     social_linkedin: str | None = None
     social_youtube: str | None = None
 
-
-class ProfileDB(ProfileBase, table=True):
-    __tablename__ = "profiles"
-
-    id: int | None = Field(default=None, primary_key=True)
     last_seen_at: datetime = Field(default_factory=datetime.utcnow)
-
     avatar_hash: str | None = Field(default=None, max_length=32)
 
     user_id: int | None = Field(default=None, foreign_key="user.id")
@@ -47,6 +44,7 @@ class ProfileDB(ProfileBase, table=True):
         if self.account and self.account.email and not self.avatar_hash:
             self.avatar_hash = self.gravatar_hash()
 
+    # TODO: used in two places, extract out into a method
     def gravatar_hash(self):
         # Gravatar service requires email to be lowercase.
         # MD5 support in Python works on bytes and not on strings, therefor the
