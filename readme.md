@@ -4,7 +4,7 @@
 
 [teknikhogskolan]: https://teknikhogskolan.se/
 
-A portfolio Web App for the developers of [Teknikhögskolan][teknikhogskolan] to showcase their work for future employers
+A portfolio Web App for the aspiring developers of [Teknikhögskolan][teknikhogskolan] to showcase their work for future employers
 or people seeking to collaborate on other projects.
 
 ## Demo
