@@ -21,6 +21,3 @@ class ClientUserTestCase(BaseClientTestCase):
                                     data=payload,
                                     follow_redirects=True)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-
-    def test_user_login(self):
-        pass
