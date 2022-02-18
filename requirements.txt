@@ -22,6 +22,11 @@ python-dotenv
 # Security
 passlib[argon2]
 
+# Testing
+flake8
+pytest
+pytest-cov
+
 # Server
 gunicorn
 
