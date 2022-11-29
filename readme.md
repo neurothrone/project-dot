@@ -4,8 +4,8 @@
 
 [teknikhogskolan]: https://teknikhogskolan.se/
 
-A portfolio Web App for the aspiring developers of [Teknikhögskolan][teknikhogskolan] to showcase their work for future employers
-or people seeking to collaborate on other projects.
+A portfolio Web App for the aspiring developers of [Teknikhögskolan][teknikhogskolan] to showcase their work for future
+employers or people seeking to collaborate on other projects.
 
 ## Demo
 
@@ -19,7 +19,6 @@ A working demo can be found at [Heroku][heroku].
 
 ## Tools
 
-
 [flask]: https://flask.palletsprojects.com/en/2.0.x/
 
 [sqlmodel]: https://sqlmodel.tiangolo.com/
@@ -29,3 +28,11 @@ A working demo can be found at [Heroku][heroku].
 - Web framework: [Flask][flask]
 - Database ORM: [SQLModel][sqlmodel]
 - Frontend: [HTMX][htmx]
+
+## Architecture
+
+...
+
+## Database structure
+
+...
